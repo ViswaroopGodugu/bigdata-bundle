@@ -5,6 +5,7 @@ import org.apache.spark.sql.functions.{col, lit, year}
 
 object BasicSparkOps {
   var b: Int = _
+
   def main(args: Array[String]): Unit = {
 
     val spark =
@@ -61,41 +62,36 @@ object BasicSparkOps {
     // More rows filter  => filter
     // less data as ouput => where
 
-    // dataframe1.show()
+    dataframe1.show()
 
-    //    val rdd = spark.sparkContext.parallelize(
-    //      Seq(
-    //        ("Java", 20000),
-    //        ("Python", 100000),
-    //        ("Scala", 3000)
-    //      ), 2)
-    //    val rdd2 = rdd.map(x => (x._1))
-    //
-    //    rdd2.foreach(x => {
-    //      println(x)
-    //      println("======>" + x + "   -- ")
-    //    })
-    //
-    //    println("===============>   " + rdd.getStorageLevel)
-    //    println("===============>   " + rdd.getNumPartitions)
-    //
-    //    val rdd4 = rdd.coalesce(1)
-    //
-    //    println("===============>  RDD4 " + rdd4.getStorageLevel)
-    //    println("===============>  RDD4  " + rdd4.getNumPartitions)
-    //
-    //    val rddNext = spark.sparkContext.textFile("D:\\projects\\DATA\\sample.txt")
-    //    rddNext.foreach(x => {
-    //      println(x)
-    //    })
-    //    println("===============>  RDD4 " + rddNext.getStorageLevel)
-    //    println("===============>  RDD4  " + rddNext.getNumPartitions)
+    val rdd = spark.sparkContext.parallelize(
+      Seq(
+        ("Java", 20000),
+        ("Python", 100000),
+        ("Scala", 3000)
+      ), 2)
+    val rdd2 = rdd.map(x => (x._1))
 
+    rdd2.foreach(x => {
+      println(x)
+      println("======>" + x + "   -- ")
+    })
 
-    Thread.sleep(100000000)
+    println("===============>   " + rdd.getStorageLevel)
+    println("===============>   " + rdd.getNumPartitions)
 
+    val rdd4 = rdd.coalesce(1)
 
-    //
-    //    spark.stop()
+    println("===============>  RDD4 " + rdd4.getStorageLevel)
+    println("===============>  RDD4  " + rdd4.getNumPartitions)
+
+    val rddNext = spark.sparkContext.textFile("D:\\projects\\DATA\\sample.txt")
+    rddNext.foreach(x => {
+      println(x)
+    })
+    println("===============>  RDD4 " + rddNext.getStorageLevel)
+    println("===============>  RDD4  " + rddNext.getNumPartitions)
+
+    spark.stop()
   }
 }

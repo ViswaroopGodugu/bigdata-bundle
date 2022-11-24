@@ -10,6 +10,4 @@ object SparkSessionUtils {
       .master("local[*]") //YARN
       .config("spark.app.name", "team_DE")
       .getOrCreate()
-
-
 }

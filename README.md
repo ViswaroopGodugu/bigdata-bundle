@@ -12,7 +12,7 @@ Hadoop introduction : 1 Day
 
 Mapreduce introduction : 1 Day
 
-Hadoop architecture : 1Day
+Hadoop's architecture : 1Day
 
 Yarn resources manager : 1Day
 

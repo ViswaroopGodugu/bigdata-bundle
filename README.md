@@ -4,6 +4,7 @@
 - learning things to practical implementations 
 
 personalized course available @8008941573 :
+
 Roles of Data engineer  : 1 day
 
 What is ETL : 1 Day

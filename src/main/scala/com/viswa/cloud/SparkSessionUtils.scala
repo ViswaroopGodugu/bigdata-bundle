@@ -2,7 +2,7 @@ package com.viswa.cloud
 
 import org.apache.spark.sql.SparkSession
 
-object SparkSessionUtils {
+class SparkSessionUtils{
 
   val spark =
     SparkSession
@@ -10,4 +10,6 @@ object SparkSessionUtils {
       .master("local[*]") //YARN
       .config("spark.app.name", "team_DE")
       .getOrCreate()
+
+  val x= 10
 }

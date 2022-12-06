@@ -2,7 +2,7 @@ package com.viswa.cloud
 
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
-object CSVLoader extends App {
+class CSVLoader extends App {
 
   //Spark session creation
   val spark = SparkSession.builder().master("local").appName("DE").getOrCreate()

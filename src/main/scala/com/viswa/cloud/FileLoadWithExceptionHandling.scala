@@ -1,17 +1,11 @@
 package com.viswa.cloud
 
-import org.apache.hadoop.fs.PathNotFoundException
 import org.apache.spark.internal.Logging
-import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
-import org.apache.spark.sql.catalyst.expressions.aggregate.{Count, Max, Min}
-import org.apache.spark.sql.catalyst.parser.SqlBaseParser.WindowSpecContext
-import org.apache.spark.sql.expressions.Window
 import org.apache.spark.sql.functions._
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.slf4j.LoggerFactory
 
-import java.io.FileNotFoundException
-
-object SQLOperations extends Logging with App {
+object FileLoadWithExceptionHandling extends Logging with App {
 
   val logger = LoggerFactory.getLogger("SQLOperations")
 

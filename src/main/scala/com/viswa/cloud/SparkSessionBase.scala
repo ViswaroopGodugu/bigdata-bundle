@@ -2,7 +2,7 @@ package com.viswa.cloud
 
 import org.apache.spark.sql.SparkSession
 
-class SparkSessionUtils{
+class SparkSessionBase{
 
   val spark =
     SparkSession

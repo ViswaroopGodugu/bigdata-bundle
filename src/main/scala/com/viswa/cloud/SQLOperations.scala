@@ -23,32 +23,4 @@ object SQLOperations extends Logging with App {
       .getOrCreate()
   spark.sparkContext.setLogLevel("OFF")
 
-  val transDF = spark.read.option("header", true).csv("D:\\Batch1\\CurrecnyExchange\\Transcations\\Trans.csv.txt")
-
-  val ratesDF: DataFrame =
-    try {
-      spark.read.option("header", true).csv("D:\\Batch1\\CurrecnyExchange\\ExchrangeRates\\rates_.csv.txt")
-    } catch {
-      case eX: Throwable => {
-        logger.error("Exchange rates data is Not loaded ")
-        throw new Exception("Exchange rates data is Not loaded ")
-        spark.emptyDataFrame
-      }
-    }finally {
-      println("program ended ")
-    }
-
-  transDF.show()
-  ratesDF.show()
-
-  transDF.as("a")
-    .join(
-      ratesDF.as("b"),
-      expr("a.CCY == b.baseCurrency"),
-      "leftouter"
-    )
-    .select("a.DATE", "a.ACC_NUM", "a.CCY", "a.AMOUNT", "b.FCurrency", "b.Mutilply")
-    .withColumn("FamtNew", expr("CASE WHEN CCY=='USD' THEN AMOUNT  ELSE  AMOUNT/Mutilply  END"))
-    .show
-
 }

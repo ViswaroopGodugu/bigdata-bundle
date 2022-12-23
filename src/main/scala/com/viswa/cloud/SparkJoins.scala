@@ -21,6 +21,7 @@ object SparkJoins extends App {
       .master("local[*]") //YARN
       .config("spark.app.name", "team_DE")
       .getOrCreate()
+
   spark.sparkContext.setLogLevel("OFF")
 
   val df1 = spark.createDataFrame(

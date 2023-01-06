@@ -56,14 +56,7 @@ object StreemingSaprk extends Logging with App {
 
   streamQuerymanger.start()
 
-  while (!spark.streams.active.isEmpty) {
-    spark.streams.active.foreach(x => println("query name ==> " + x.name))
-    spark.streams.active.foreach(x => println("           ==> is Active    :: " + x.isActive))
-    spark.streams.active.foreach(x => println("           ==> is LP rows   :: " +
-      Option(if (x.recentProgress.isEmpty) "NA" else x.recentProgress.last.numInputRows.toString).getOrElse("NA")))
-    spark.streams.active.foreach(x => println("           ==> is available :: " + x.status.isDataAvailable))
-    Thread.sleep(6000)
-  }
+
 
   spark.streams.awaitAnyTermination()
 }

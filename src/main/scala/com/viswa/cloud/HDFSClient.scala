@@ -21,15 +21,15 @@ object HDFSClient extends App {
 
   // Create a new file and write data to it.
   val out = fileSystem.create(path)
-  val in = new BufferedInputStream(new FileInputStream(new File("source")));
+  val in = new BufferedInputStream(new FileInputStream(new File("D:\\local\\abc.txt")));
   var numBytes = 0;
   var b = new Array[Byte](1024)
   while ((numBytes = in.read(b)) > 0) {
     out.write(b, 0, numBytes);
   }
   // Close all the file descriptors
-  in.close();
-  out.close();
+  in.close()
+  out.close()
   fileSystem.close()
 
   fileSystem.delete(new Path("hdfs://clutsername//abc.txt"))

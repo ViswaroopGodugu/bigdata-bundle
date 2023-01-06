@@ -1,17 +1,15 @@
 package com.viswa.cloud
 
-import org.apache.hadoop.fs.PathNotFoundException
-import org.apache.spark.internal.Logging
-import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
-import org.apache.spark.sql.catalyst.expressions.aggregate.{Count, Max, Min}
-import org.apache.spark.sql.catalyst.parser.SqlBaseParser.WindowSpecContext
-import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.catalyst.plans.JoinType
 import org.apache.spark.sql.functions._
 import org.slf4j.LoggerFactory
 
-import java.io.FileNotFoundException
+case class PeopleData(SNO: String = "", NAME: String = "", AGE: String = "", ID: String = "") {}
 
-object SparkJoins extends App {
+case class CountryData(var COUNTRY: String = "", var ID: String = "") {}
+
+object SparkJoinsWithDataSets extends App {
 
   val logger = LoggerFactory.getLogger("SQLOperations")
 
@@ -44,20 +42,58 @@ object SparkJoins extends App {
 
   spark.catalog.listTables().show()
 
-  spark.sql(
-    """
-      | select * from tabl1 a left join tabl2 b on a.ID==b.ID
-      |
-      |""".stripMargin
-  ).show()
+  //  spark.sql(
+  //    """
+  //      | select * from tabl1 a left join tabl2 b on a.ID==b.ID
+  //      |
+  //      |""".stripMargin
+  //  ).show()
 
-  df1.as("a")
+  //join with Expression
+  //  df1.as("a")
+  //    .join(
+  //      df2.as("b")
+  //      , expr("a.ID==b.ID")
+  //      , "left"
+  //    ).show()
+
+  //join with Seq  == inner
+  //  df1.as("a")
+  //    .join(
+  //      df2.as("b")
+  //      , Seq("ID")
+  //      , "inner"
+  //    ).show()
+
+  //join with Seq  == left
+  //  df1.as("a")
+  //    .join(
+  //      df2.as("b")
+  //      , Seq("ID")
+  //      , "left"
+  //    ).show()
+
+  df2.as("a")
     .join(
-      df2.as("b")
-      ,expr("a.ID==b.ID")
-      , "left"
+      df1.as("b")
+      , Seq("ID")
+      , "right"
     ).show()
 
+  println("------- With DS -----------------------")
+
+  import spark.implicits._
+
+  val ds1 = df1.as[CountryData]
+  val ds2 = df2.as[PeopleData]
+
+  ds2.joinWith(ds1, ds1("ID") === ds2("ID"), "inner").show
+  ds2.joinWith(ds1, ds1("ID") === ds2("ID"), "inner").printSchema()
+  ds2.join(ds1, ds1("ID") === ds2("ID"), "inner").show
+
+  println("===>"+CountryData().ID)
+
+  ds2.join(ds1, expr(s"${CountryData().ID} == ${PeopleData().ID}"), "inner").show
 
   println("------- PROGRAM END ------------------------")
 }

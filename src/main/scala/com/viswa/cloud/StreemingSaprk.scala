@@ -1,6 +1,6 @@
 package com.viswa.cloud
 
-import com.viswa.cloud.FileLoadWithExceptionHandling.spark
+import .spark
 import org.apache.spark.internal.Logging
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.StructType
